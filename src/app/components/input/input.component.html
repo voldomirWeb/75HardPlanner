@@ -1,0 +1,14 @@
+<div class="relative">
+  <label
+    [for]="'textInput'+label"
+    class="px-1 z-50 text-sm whitespace-nowrap flex absolute -top-2.5 left-3 bg-white w-min">
+    {{ label }}
+  </label>
+  <input
+    [id]="'textInput' + label"
+    [name]="'textInput' + label"
+    class="w-full border border-gray border-solid rounded-md h-10 px-2 disabled:bg-lightgray disabled:text-primary"
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="formControlElement"/>
+</div>

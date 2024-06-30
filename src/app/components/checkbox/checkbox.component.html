@@ -1,0 +1,13 @@
+<div class="flex flex-row items-center whitespace-nowrap gap-2 bg-white w-fit p-2 rounded ">
+  <label
+    [for]="'checkbox'+label"
+    class="text-sm">
+    {{ label }}
+  </label>
+  <input
+    [id]="'checkbox' + label"
+    [name]="'checkbox' + label"
+    class="border border-gray border-solid rounded-lg size-4 disabled:bg-lightgray ml-auto disabled:text-primary checked:accent-orange-500"
+    type="checkbox"
+    [formControl]="formControlElement"/>
+</div>

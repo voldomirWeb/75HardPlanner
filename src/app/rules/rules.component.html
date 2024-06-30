@@ -1,0 +1,20 @@
+<div class="w-screen h-screen justify-center items-center flex">
+  <div
+    class="flex justify-center items-center flex-col gap-y-4 p-8 bg-white rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-30 border border-gray-100"
+  >
+    <h1 class="text-4xl font-semibold text-orange-500">{{ configuratorService.configuration().totalDays }} Hard Challenge</h1>
+    <h2 class="text-xl">Die Challenge startet
+      am {{ configuratorService.configuration().startDay | date : "dd.MM.YY" }}</h2>
+    <hr class='w-4/5 h-1 my-4 bg-orange-500 border-none' />
+    <div class="flex flex-col gap-y-4">
+      <p class="text-2xl font-semibold text-orange-500">Die Regeln:</p>
+      <div class="text-lg flex-col flex gap-y-1 pl-4">
+        @for (rule of configuratorService.configuration().rules; track rule; let i = $index) {
+          <p>{{ i + 1 }}. {{ rule }}</p>
+        }
+      </div>
+    </div>
+
+    <a routerLink="/plan" class="mt-8 font-semibold text-orange-500">Zum Plan</a>
+  </div>
+</div>
