@@ -56,8 +56,6 @@ export class ConfigurationService {
 		if (configuration) {
 			this.configuration.set(JSON.parse(configuration));
 		}
-
-		console.log(configuration, this.configuration());
 	}
 
 	public saveConfiguration() {

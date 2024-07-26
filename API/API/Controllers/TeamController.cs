@@ -1,4 +1,4 @@
-﻿using API.Entities;
+using API.Entities;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +21,7 @@ public class TeamController : Controller
         var team = teamService.CreateTeam(teamName, name);
         return Ok(team);
     }
-    
+
     [HttpPost("{teamId}")]
     public ActionResult<bool> JoinTeam(string teamId, string name)
     {
