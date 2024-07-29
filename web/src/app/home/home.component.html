@@ -1,5 +1,31 @@
 <div class="w-screen h-screen justify-center items-center flex">
   <app-card>
-    <h1 class="text-2xl font-semibold text-secondary p-8">Bereit für eine herrausforderung?</h1>
+    <img ngSrc="/assets/home_bg.jpg" class="rounded-t-md h-[250px] w-full object-top object-cover" priority alt='sportlicher bruder'
+         height="427" width="640"/>
+    <div class="flex items-start justify-center max-w-[40rem] flex-col px-8 py-10 gap-y-4">
+      <h1 class="text-2xl font-semibold text-secondary">Bereit für eine Herausforderung?</h1>
+      <div class="flex flex-col w-full gap-x-6 gap-y-6">
+        <p>
+          Es handelt sich um eine Selbstverbesserung und mentale Herausforderung, die von Andy Frisella, einem
+          Unternehmer
+          und Influencer, entwickelt wurde. In seinen Worten handelt es sich um ein „transformatives Programm zur
+          mentalen
+          Stärke“. Es besteht aus 6 Grundregeln, die du 75 Tage hintereinander befolgen musst.
+        </p>
+        <div class="flex flex-row gap-x-6 mt-2">
+          <a
+            href='/team/join'
+            class="flex items-center justify-center bg-gray-300 font-medium w-full text-secondary py-4 rounded-md">
+            Challenge beitreten
+          </a>
+          <a
+            href='/config'
+            class="flex items-center justify-center bg-secondary font-medium w-full text-white py-4 rounded-md">
+            Zum Konfigurator
+            <mat-icon class="text-white !size-6 text-[1.5rem] ml-4">east</mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
   </app-card>
 </div>

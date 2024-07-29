@@ -1,0 +1,25 @@
+<div class="w-screen h-screen flex flex-grow-0">
+  <div class="p-10 gap-4 flex flex-wrap overflow-y-auto h-min">
+    @for (day of days(); track day; let i = $index) {
+      <div class='flex flex-col rounded drop-shadow-md'>
+        <span
+          class="bg-white px-4 text-black h-12 items-center justify-between flex w-full rounded-t gap-x-4 py-2 min-w-36">
+          <p
+            class='text-secondary text-sm font-medium w-8 bg-gray-300 rounded-full text-center p-1'>{{ i + 1 }}</p>
+          <p
+            class='text-secondary font-medium cursor-vertical-text'>{{ addDays(configurationService.configuration().startDay, i) | date: "dd.MM.YY" }}</p>
+        </span>
+        <div class='flex flex-row items-center bg-white/80 rounded-b'>
+          <div class="py-3 px-4 gap-y-2 flex flex-col items-start h-full rounded-b">
+            @for (participant of configurationService.participants(); track participant) {
+              <div class='flex flex-row items-center justify-center h-full gap-x-2'>
+                <input type='checkbox' class="w-6 h-6 bg-white" (click)='updateDay(participant,i)'>
+                <p class='text-sm font-medium text-black'>{{ participant.trim() }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

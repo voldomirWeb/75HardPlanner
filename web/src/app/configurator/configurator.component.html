@@ -1,59 +1,58 @@
-<div class="w-screen h-screen justify-center items-center flex overflow-y-auto">
+<div class="w-screen h-screen overflow-hidden justify-center items-center flex">
   <app-card>
-    <div class="flex justify-center max-h-[80%] overflow-x-hidden items-center flex-col gap-y-4 px-6 py-8">
-      <h1 class='text-2xl mb-4 font-semibold text-black'>Challenge Konfigurator</h1>
-      <form [formGroup]='form' (submit)='submit()' class='z-10 flex-col flex gap-y-4 w-96 overflow-y-auto py-1 px-2'>
+    <img ngSrc='/assets/config_bg.jpg' class='w-full h-[250px] object-center object-cover rounded-t-md' priority
+         height="427"
+         width="640" alt='small to big balls'/>
+    <div class="flex items-start justify-center max-h-[70vh] overflow-hidden w-[40rem] flex-col px-8 py-10 gap-y-4">
+      <h1 class='text-2xl mb-2 font-semibold text-secondary'>Konfiguriere deine Challenge!</h1>
+      <form [formGroup]='form' (submit)='submit()' class='z-10 flex-col flex gap-y-4 w-full overflow-y-auto'>
         <app-date-input [formControlElement]='form.controls.startDate' label='Startdatum' class='mt-1'>
         </app-date-input>
         <app-checkbox [formControlElement]='form.controls.customRules' label='Abweichende Angaben'></app-checkbox>
         @if (form.controls.customRules.value) {
-        <div>
-          <app-input [formControlElement]='form.controls.totalDays' label='Tage insgesamt' placeholder='Wie lange?'
-            type='number'>
-          </app-input>
-          <div class='text-sm ml-2 font-extralight'>
-            Einschließlich bis {{ untilDate() | date: 'dd.MM.YYYY' }}
+          <div>
+            <app-input [formControlElement]='form.controls.totalDays' label='Tage insgesamt' placeholder='Wie lange?'
+                       type='number'>
+            </app-input>
+            <div class='text-sm ml-2 mt-1 font-extralight'>
+              Einschließlich bis {{ untilDate() | date: 'dd.MM.YYYY' }}
+            </div>
           </div>
-        </div>
-        @for (rule of form.controls.rules.controls; track rule; let i = $index) {
-        <div class='flex flex-row gap-x-2 w-full'>
-          <app-input [formControlElement]='rule' label='Regel {{ i + 1}}' placeholder='Was ist die Regel?' type='text'
-            class='w-full'>
-          </app-input>
-          @if (form.controls.rules.controls.length !== 1) {
-          <button type='button' class='py-1 px-2 w-10 h-10 rounded bg-tertiary/70 self-end' (click)='removeRule(i)'>
-            <mat-icon></mat-icon>
-          </button>
+          @for (rule of form.controls.rules.controls; track rule; let i = $index) {
+            <div class='flex flex-row gap-x-2 w-full'>
+              <app-input [formControlElement]='rule' label='Regel {{ i + 1}}' placeholder='Was ist die Regel?'
+                         type='text'
+                         class='w-full'>
+              </app-input>
+              @if (form.controls.rules.controls.length !== 1) {
+                <button type='button'
+                        class='flex py-1 px-2 w-10 h-10 rounded bg-tertiary/70 self-end items-center justify-center'
+                        (click)='removeRule(i)'>
+                  <mat-icon class="!size-5 text-white text-[1.25rem]">delete_outline</mat-icon>
+                </button>
+              }
+            </div>
           }
-        </div>
-        }
-        <div (click)="addRule()" class='-mt-2 w-3/4 cursor-pointer'>
-          + Regel hinzufügen
-        </div>
-        <hr class='w-full h-[1.5px] border-none bg-white' />
-        }
-        @for (participant of form.controls.participants.controls; track participant; let i = $index) {
-        <div class='flex flex-row gap-x-2 w-full'>
-          <app-input [formControlElement]='participant' label='Teilnehmer {{ i + 1}}' placeholder='Wer macht mit?'
-            type='text' class='w-full'>
-          </app-input>
-          @if (form.controls.participants.controls.length !== 1) {
-          <button type='button' class='py-1 px-2 w-10 h-10 rounded bg-tertiary/70 self-end'
-            (click)='removeParticipant(i)'>-
+          <button (click)="addRule()" type='button' class="self-start -mt-2 text-secondary flex flex-row gap-x-2"><p>+</p>
+            Regel hinzufügen
           </button>
-          }
-        </div>
-
+          <hr class='w-full h-px border-none bg-gray-300'/>
         }
-        <div (click)="addParticipant()" class='-mt-2 mb-2 w-3/4 cursor-pointer'>
-          + Teilnehmer hinzufügen
-        </div>
+          <div class='flex flex-row gap-x-2 w-full'>
+            <app-input [formControlElement]='form.controls.participant' label='Dein Name' placeholder='Wer macht mit?'
+                       type='text' class='w-full'>
+            </app-input>
+          </div>
       </form>
-      <button appButton variant='primary' type='submit' (click)='submit()'>Weiter
-      </button>
-      <button appButton variant='secondary' type='button' (click)='createTeam()'>
-        Team erstellen
-      </button>
+      <div class='w-full flex flex-row gap-x-6 mt-6'>
+        <a href='/home'
+           class="flex items-center justify-center bg-gray-300 font-medium w-full text-secondary py-4 rounded-md">
+          <mat-icon class="text-secondary !size-6 text-[1.5rem] mr-4">west</mat-icon>
+          Zurück
+        </a>
+        <button appButton variant='primary' type='submit' (click)='submit()'>Challenge starten!
+        </button>
+      </div>
     </div>
   </app-card>
 </div>

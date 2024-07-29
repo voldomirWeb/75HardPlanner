@@ -1,15 +1,12 @@
-import type { Routes } from "@angular/router";
+import type {Routes} from "@angular/router";
 
 export const routes: Routes = [
   {
-    path: "plan",
+    path: "home",
     loadComponent: () =>
-      import("./plan/plan.component").then((m) => m.PlanComponent),
-  },
-  {
-    path: "rules",
-    loadComponent: () =>
-      import("./rules/rules.component").then((m) => m.RulesComponent),
+      import("./home/home.component").then(
+        (m) => m.HomeComponent,
+      )
   },
   {
     path: "config",
@@ -19,11 +16,42 @@ export const routes: Routes = [
       ),
   },
   {
-    path: "home",
+    path: "challenge/:id",
     loadComponent: () =>
-      import("./home/home.component").then(
-        (m) => m.HomeComponent,
-      )
+      import("./challenge/challenge.component").then(
+        (m) => m.ChallengeComponent,
+      ),
+    children: [
+      {
+        path: "rules",
+        loadComponent: () =>
+          import("./challenge/rules/rules.component").then((m) => m.RulesComponent),
+      },
+      {
+        path: "plan",
+        loadComponent: () =>
+          import("./challenge/plan/plan.component").then((m) => m.PlanComponent),
+      },
+      {
+        path: "team",
+        loadComponent: () =>
+          import("./challenge/team/team.component").then((m) => m.TeamComponent),
+      },
+      {
+        path: "team/join",
+        loadComponent: () =>
+          import("./challenge/team/join/join.component").then((m) => m.JoinComponent),
+      },
+      {
+        path: "*",
+        redirectTo: "rules",
+      },
+      {
+        path: "",
+        pathMatch: "full",
+        redirectTo: "rules",
+      },
+    ]
   },
   {
     path: "*",

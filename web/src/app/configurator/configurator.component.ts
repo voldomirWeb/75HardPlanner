@@ -7,22 +7,24 @@ import {
   Validators,
 } from "@angular/forms";
 import * as router from "@angular/router";
-import { addDays } from "date-fns";
-import { take } from "rxjs";
-import { CardComponent } from "../components/card/card.component";
-import { CheckboxComponent } from "../components/checkbox/checkbox.component";
-import { InputComponent } from "../components/input/input.component";
-import { ConfigurationService } from "../configuration.service";
-import { ButtonDirective } from "../directivs/button.directive";
+import {addDays} from "date-fns";
+import {take} from "rxjs";
+import {CardComponent} from "../components/card/card.component";
+import {CheckboxComponent} from "../components/checkbox/checkbox.component";
+import {InputComponent} from "../components/input/input.component";
+import {ConfigurationService} from "../configuration.service";
+import {ButtonDirective} from "../directivs/button.directive";
 import * as apiService from "../services/api.service";
-import { Component } from "@angular/core";
-import { DatePipe } from "@angular/common";
-import { DateInputComponent } from "../components/date-input/date-input.component";
+import {Component} from "@angular/core";
+import {DatePipe, NgOptimizedImage} from "@angular/common";
+import {DateInputComponent} from "../components/date-input/date-input.component";
+import {MatIconModule} from '@angular/material/icon';
+
 
 @Component({
   selector: "app-configurator",
   standalone: true,
-  imports: [ReactiveFormsModule, InputComponent, CheckboxComponent, CardComponent, ButtonDirective, DatePipe, DateInputComponent],
+  imports: [ReactiveFormsModule, InputComponent, CheckboxComponent, CardComponent, ButtonDirective, DatePipe, DateInputComponent, MatIconModule, NgOptimizedImage],
   templateUrl: "./configurator.component.html",
 })
 export class ConfiguratorComponent implements core.OnInit {
@@ -42,12 +44,11 @@ export class ConfiguratorComponent implements core.OnInit {
         nonNullable: true,
       }),
     ]),
-    participants: new FormArray([
+    participant:
       new FormControl<string>("", {
         validators: [Validators.required],
         nonNullable: true,
       }),
-    ]),
   });
 
   constructor(
@@ -60,20 +61,6 @@ export class ConfiguratorComponent implements core.OnInit {
   public ngOnInit() {
     const config = this.configuratorService.configuration();
 
-    const loadedParticipants = config.participants.map(
-      (participant: string) => {
-        return new FormControl<string>(participant, {
-          validators: [Validators.required],
-          nonNullable: true,
-        });
-      },
-    );
-
-    this.form.controls.startDate.valueChanges.subscribe((value) => {
-      console.log(value)
-    })
-
-    this.form.controls.participants = new FormArray(loadedParticipants);
     if (config.customRules) {
       const loadedRules = config.rules.map((rule: string) => {
         return new FormControl<string>(rule, {
@@ -99,28 +86,15 @@ export class ConfiguratorComponent implements core.OnInit {
     );
   }
 
-  public addParticipant() {
-    this.form.controls.participants.push(
-      new FormControl<string>("", {
-        validators: [Validators.required],
-        nonNullable: true,
-      }),
-    );
-  }
-
   public removeRule(index: number) {
     this.form.controls.rules.removeAt(index);
-  }
-
-  public removeParticipant(index: number) {
-    this.form.controls.participants.removeAt(index);
   }
 
   public submit() {
     if (this.form.controls.customRules.value) {
       this.configuratorService.setConfiguration(
         new Date(this.form.controls.startDate.value),
-        this.form.controls.participants.value,
+        this.form.controls.participant.value,
         this.form.controls.totalDays.value,
         this.form.controls.rules.value,
         this.form.controls.customRules.value,
@@ -128,14 +102,16 @@ export class ConfiguratorComponent implements core.OnInit {
     } else {
       this.configuratorService.setConfiguration(
         new Date(this.form.controls.startDate.value),
-        this.form.controls.participants.value,
+        this.form.controls.participant.value,
         undefined,
         undefined,
         false,
       );
     }
 
-    this.router.navigate(["/rules"]);
+    //todo id von server
+
+    this.router.navigate(["/challenge/11/rules"]);
   }
 
   public untilDate() {
@@ -146,14 +122,4 @@ export class ConfiguratorComponent implements core.OnInit {
     console.log("newDate", newDate);
     return newDate
   }
-
-  public async createTeam() {
-    const result = await this.apiService.createTeam("Test", "Basti");
-
-    result.pipe(take(1)).subscribe((team) => {
-      console.log(team);
-    });
-  }
-
-  protected readonly addDays = addDays;
 }

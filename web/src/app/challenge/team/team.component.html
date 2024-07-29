@@ -1,0 +1,41 @@
+<div class="w-screen h-screen justify-center items-center flex">
+  <app-card>
+    <img ngSrc="/assets/team_bg.jpg" class="rounded-t-md h-[250px] w-full object-cover object-center" priority
+         alt='soft hands holding many blue balls'
+         height="427" width="640"/>
+    <div class="flex items-start justify-center max-h-[70vh] overflow-hidden w-[40rem] flex-col px-8 py-10 gap-y-4">
+      <div class='flex-row flex justify-between w-full items-center'>
+        <h1 class="text-2xl font-semibold text-secondary">
+          Das ist dein Team
+        </h1>
+      </div>
+      <div class="flex flex-col gap-y-4 overflow-y-auto w-full">
+        <div class="text-lg flex-col flex gap-y-2 w-full ">
+          @for (participant of configuratorService.participants(); track participant; let i = $index) {
+            <div class='flex flex-row gap-x-2 w-full rounded-md'>
+              <div class='flex flex-row gap-x-2 w-full bg-gray-300 py-4 px-3 rounded items-center'>
+                <mat-icon class='text-secondary'>person_outline</mat-icon>
+                <p>{{ participant }}</p>
+              </div>
+              @if (configuratorService.participants().length !== 1) {
+                <button type='button'
+                        class='flex rounded bg-tertiary/70 flex-shrink-0 px-3 items-center justify-center'
+                        (click)='removeParticipant(i)'>
+                  <mat-icon class="!size-6 text-white text-[1.5rem]">delete_outline</mat-icon>
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <button (click)='copyInviteUrl()' type='button' class='text-secondary font-medium'>
+        Einladungslink kopieren
+      </button>
+      <a
+        href='/challenge/{{11}}/rules'
+        class="flex items-center justify-center bg-secondary font-medium w-full text-white py-4 rounded-md mt-6">
+        Zu den Regeln
+      </a>
+    </div>
+  </app-card>
+</div>
